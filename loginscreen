@@ -1,0 +1,174 @@
+/**import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+
+export default function LoginScreen() {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Giriş Yap</Text>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+  },
+  title: {
+    fontSize: 26,
+    fontWeight: '700',
+    color: '#222222',
+  },
+});
+*/
+/**import React, { useState } from 'react';
+import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+
+export default function LoginScreen() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Giriş Yap</Text>
+
+      <TextInput
+        style={styles.input}
+        placeholder="E-posta"
+        value={email}
+        onChangeText={setEmail}
+        keyboardType="email-address"
+      />
+
+      <TextInput
+        style={styles.input}
+        placeholder="Şifre"
+        value={password}
+        onChangeText={setPassword}
+        secureTextEntry
+      />
+
+      <View style={styles.buttonContainer}>
+        <Button title="Giriş Yap" onPress={() => {}} />
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    paddingHorizontal: 20,
+  },
+  title: {
+    fontSize: 26,
+    fontWeight: '700',
+    marginBottom: 30,
+    color: '#222',
+  },
+  input: {
+    width: '100%',
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 15,
+  },
+  buttonContainer: {
+    width: '100%',
+    marginTop: 10,
+  },
+});
+*/
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  Alert,
+  TouchableWithoutFeedback,
+  Keyboard,
+  SafeAreaView, // Ekranın güvenli alanlarını kullanmak için
+} from 'react-native';
+import CustomInput from './CustomInput'; // Adım 6'da oluşturduğumuz bileşen
+
+export default function LoginScreen() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  // Adım 7: Butona tıklandığında konsola yazdırma [cite: 49]
+  const handleLogin = () => {
+    // Basit bir doğrulama
+    if (!email || !password) {
+      Alert.alert('Uyarı', 'Lütfen e-posta ve şifre giriniz!');
+      return;
+    }
+
+    // Değerleri konsola yazdır [cite: 49]
+    console.log('E-posta:', email);
+    console.log('Şifre:', password);
+
+    // (İsteğe bağlı) Kullanıcıya bildirim
+    Alert.alert('Giriş Başarılı', E-posta: ${email}\nŞifre: ${password});
+  };
+
+  return (
+    <SafeAreaView style={styles.safeArea}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.container}>
+          
+          {/* Adım 4: Giriş Yap Başlığı [cite: 32] */}
+          <Text style={styles.title}>Giriş Yap</Text>
+
+          {/* Adım 5 & 6: E-posta kutusu [cite: 37, 46] */}
+          <CustomInput
+            placeholder="E-posta"
+            value={email}
+            onChangeText={setEmail} // Değeri state'e bağlama
+            keyboardType="email-address"
+            autoCapitalize="none"
+          />
+
+          {/* Adım 5 & 6: Şifre kutusu [cite: 38, 46] */}
+          <CustomInput
+            placeholder="Şifre"
+            value={password}
+            onChangeText={setPassword} // Değeri state'e bağlama
+            secureTextEntry={true} // Şifrenin gizli görünmesi
+          />
+
+          {/* Adım 5: Giriş Yap Butonu [cite: 40] */}
+          <Button
+            title="Giriş Yap"
+            onPress={handleLogin}
+          />
+        </View>
+      </TouchableWithoutFeedback>
+    </SafeAreaView>
+  );
+}
+
+// Stiller
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    padding: 20,
+    backgroundColor: '#fff', // Arka plan rengi
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 30,
+  },
+});
